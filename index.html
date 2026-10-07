@@ -6,120 +6,131 @@
 <title>For Nadège</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Pinyon+Script&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
+  /* Poster theme, taken from the Amour preloader: bone paper, oxblood marker ink, felt-green sun. */
   :root {
-    --felt: #12291f;
-    --felt-hi: #21483a;
-    --board: #1f4334;
-    --bone: #eadbbe;
-    --oxblood: #7e2532;
-    --brass: #c29a52;
-    --ink: #22304a;
-    --paper: #f5eee0;
+    --paper: #eadbbe;
+    --sheet: #f8f1e3;
+    --ink: #7e2532;
+    --sun: #21483a;
+    --core: #12291f;
   }
   * { box-sizing: border-box; }
   [hidden] { display: none !important; }
   html, body { margin: 0; }
   body {
     min-height: 100svh;
-    background: radial-gradient(120% 80% at 50% 0%, var(--felt-hi) 0%, var(--felt) 60%, #0c1c15 100%) fixed;
-    color: var(--bone);
+    background: var(--paper);
+    color: var(--core);
     font-family: "Libre Caslon Text", Georgia, serif;
     -webkit-font-smoothing: antialiased;
   }
-  body::before { /* felt grain */
-    content: ""; position: fixed; inset: 0; pointer-events: none; opacity: .07;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  body::before, body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 30; }
+  body::before { /* print grain */
+    mix-blend-mode: multiply; opacity: .3;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
+  body::after { background: radial-gradient(ellipse 80% 70% at 50% 42%, transparent 55%, rgba(80,40,20,.08) 100%); }
   button { font: inherit; }
-  :focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
+  :focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+
+  /* ---------- marker lettering (the preloader's alphabet) ---------- */
+  .mk { display: block; line-height: 0; margin: 0; }
+  .mk svg { height: 1em; width: auto; max-width: 100%; overflow: visible; display: block; }
+  .mk path { fill: none; stroke: currentColor; stroke-width: 22; stroke-linecap: round; stroke-linejoin: round; }
+  .mk-fill path { fill: currentColor; fill-opacity: 0; }
+  .mk-g { transform-box: fill-box; transform-origin: 50% 100%; }
 
   /* ---------- game ---------- */
   .game { max-width: 1120px; margin: 0 auto; padding: clamp(20px, 4vw, 44px) 16px 40px; }
-  .top { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: clamp(18px, 3vw, 30px); flex-wrap: wrap; }
-  h1 { font-family: "Libre Caslon Display", Georgia, serif; font-weight: 400; font-size: clamp(2rem, 5.2vw, 3.6rem); line-height: 1.05; letter-spacing: -.02em; margin: 0 0 .35em; }
-  .top p { margin: 0; font-size: clamp(1rem, 1.6vw, 1.15rem); opacity: .82; max-width: 44ch; line-height: 1.5; text-wrap: balance; }
-  .sealed { display: flex; align-items: center; gap: 12px; font-style: italic; font-size: .95rem; opacity: .8; }
-  .sealed svg { width: 56px; height: auto; transform: rotate(-6deg); filter: drop-shadow(0 6px 8px rgba(0,0,0,.4)); }
+  .top { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px 24px; margin-bottom: clamp(18px, 3vw, 30px); flex-wrap: wrap; }
+  .mk-title { margin: 0 0 .4em; color: var(--ink); }
+  .mk-title .mk { font-size: clamp(42px, 7vw, 86px); margin-bottom: -.14em; }
+  .mk-title .mk svg, .paper .mk svg { margin-left: -.16em; }
+  .top p { margin: 0; font-size: clamp(1rem, 1.6vw, 1.15rem); font-style: italic; max-width: 44ch; line-height: 1.5; text-wrap: balance; }
+  .sealed { display: flex; align-items: center; gap: 12px; font-style: italic; font-size: .95rem; }
+  .sealed svg { width: 56px; height: auto; transform: rotate(-6deg); filter: drop-shadow(3px 4px 0 rgba(18,41,31,.25)); }
 
   .board-wrap { position: relative; }
-  #board { width: 100%; height: auto; display: block; filter: drop-shadow(0 30px 40px rgba(0,0,0,.5)); -webkit-tap-highlight-color: transparent; user-select: none; }
+  #board { width: 100%; height: auto; display: block; filter: drop-shadow(12px 14px 0 rgba(126,37,50,.2)); -webkit-tap-highlight-color: transparent; user-select: none; }
   .hit { fill: transparent; pointer-events: all; }
   .hit.src, .hit.dest { cursor: pointer; }
-  .hit.src:hover { fill: rgba(194,154,82,.07); }
-  .hit.dest { fill: rgba(194,154,82,.13); }
-  .hit:focus-visible { outline: none; stroke: var(--brass); stroke-width: 3; }
+  .hit.src:hover { fill: rgba(234,219,190,.08); }
+  .hit.dest { fill: rgba(234,219,190,.16); }
+  .hit:focus-visible { outline: none; stroke: var(--paper); stroke-width: 3; }
   #dyn > g { pointer-events: none; }
-  .ring { fill: none; stroke: var(--brass); stroke-width: 3; stroke-opacity: .5; }
-  .ring.sel { stroke-opacity: 1; stroke-width: 4.5; }
-  .ghost { fill: rgba(234,219,190,.16); stroke: var(--brass); stroke-width: 2; stroke-dasharray: 5 5; }
-  .die rect { fill: #f4ebd8; stroke: #b9a47e; stroke-width: 1.5; }
+  .ring { fill: none; stroke: var(--paper); stroke-width: 3.5; stroke-opacity: .55; }
+  .ring.sel { stroke-opacity: 1; stroke-width: 5; }
+  .ghost { fill: rgba(234,219,190,.18); stroke: var(--paper); stroke-width: 3; stroke-dasharray: 2 8; stroke-linecap: round; }
+  .die rect { fill: var(--paper); stroke: var(--core); stroke-width: 3; }
   .die circle { fill: var(--ink); }
-  .die.a rect { fill: #1e1814; stroke: #5a4630; }
-  .die.a circle { fill: #d2ae68; }
-  .die.used { opacity: .28; }
+  .die.a rect { fill: var(--ink); }
+  .die.a circle { fill: var(--paper); }
+  .die.used { opacity: .3; }
 
-  .controls { display: flex; justify-content: space-between; align-items: center; gap: 16px 24px; margin-top: 22px; flex-wrap: wrap; }
-  .status { font-size: clamp(1.05rem, 1.8vw, 1.25rem); font-style: italic; margin: 0 0 4px; min-height: 1.5em; }
-  .hint { margin: 0; font-size: .9rem; opacity: .75; }
-  .actions { display: flex; gap: 10px; }
-  .btn { border: 1px solid rgba(234,219,190,.4); background: transparent; color: var(--bone); padding: .7em 1.4em; border-radius: 999px; cursor: pointer; transition: background .2s, transform .1s; }
-  .btn:hover { background: rgba(234,219,190,.08); }
-  .btn:active { transform: scale(.97); }
-  .btn.primary { background: var(--brass); border-color: var(--brass); color: #24180e; font-weight: 500; }
-  .btn.primary:hover { background: #d1ab66; }
+  .controls { display: flex; justify-content: space-between; align-items: center; gap: 16px 24px; margin-top: 26px; flex-wrap: wrap; }
+  .status { font-size: clamp(1.1rem, 1.9vw, 1.3rem); font-style: italic; color: var(--ink); margin: 0 0 4px; min-height: 1.5em; }
+  .hint { margin: 0; font-size: .92rem; }
+  .actions { display: flex; gap: 12px; }
+  .btn {
+    border: 2px solid var(--core); background: var(--paper); color: var(--core); padding: .65em 1.4em; border-radius: 999px; cursor: pointer;
+    box-shadow: 0 4px 0 var(--core); transition: transform .12s, box-shadow .12s;
+  }
+  .btn:hover { transform: translateY(-1px); box-shadow: 0 5px 0 var(--core); }
+  .btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--core); }
+  .btn.primary { background: var(--ink); color: var(--paper); }
 
-  .lost { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 18px; text-align: center; background: rgba(10,22,17,.72); backdrop-filter: blur(3px); border-radius: 12px; }
-  .lost p { margin: 0; font-size: clamp(1.4rem, 3vw, 2.2rem); font-weight: 300; }
+  .lost { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 14px; text-align: center; background: rgba(234,219,190,.9); border-radius: 18px; }
+  .lost .mk { font-size: clamp(60px, 12vw, 130px); color: var(--ink); }
+  .lost p { margin: 0 0 8px; font-size: clamp(1.1rem, 2.2vw, 1.4rem); font-style: italic; }
 
   /* ---------- envelope ---------- */
-  .stage-letter { min-height: 100svh; display: grid; place-items: center; align-content: center; gap: 40px; padding: 40px 16px; }
-  .won-line { margin: 0; font-size: clamp(1.2rem, 2.6vw, 1.6rem); font-style: italic; font-weight: 300; text-align: center; }
-  .envelope { position: relative; width: min(520px, 86vw); aspect-ratio: 1.6; border: 0; padding: 0; background: none; cursor: pointer; perspective: 1400px; transition: transform .35s cubic-bezier(.2,.8,.2,1); }
-  .envelope:not(.opened):hover { transform: translateY(-5px) rotate(-.6deg); }
-  .env-back { position: absolute; inset: 0; z-index: 0; background: #5f1a25; border-radius: 6px; box-shadow: 0 50px 70px -25px rgba(0,0,0,.7); }
+  .stage-letter { min-height: 100svh; display: grid; place-items: center; align-content: center; gap: 28px; padding: 40px 16px; }
+  .won { text-align: center; color: var(--ink); }
+  .won .mk { font-size: clamp(72px, 14vw, 150px); }
+  .won .mk svg { margin: 0 auto; }
+  .won-line { margin: .2em 0 0; font-size: clamp(1.1rem, 2.4vw, 1.4rem); font-style: italic; color: var(--core); }
+  .envelope { position: relative; width: min(520px, 86vw); aspect-ratio: 1.6; border: 0; padding: 0; background: none; cursor: pointer; perspective: 1400px; transition: transform .35s cubic-bezier(.3,1.6,.4,1); }
+  .envelope:not(.opened):hover { transform: translateY(-6px) rotate(-1deg); }
+  .env-back { position: absolute; inset: 0; z-index: 0; background: #5f1a25; border-radius: 10px; box-shadow: 14px 16px 0 rgba(18,41,31,.2); }
   .env-letter {
-    position: absolute; left: 6%; right: 6%; top: 6%; height: 86%; z-index: 2; border-radius: 3px;
-    background: linear-gradient(transparent 22%, rgba(34,48,74,.14) 22% calc(22% + 1px), transparent 0) 0 0 / 100% 14px, var(--paper);
-    background-clip: content-box; padding: 10% 12%; box-shadow: 0 1px 3px rgba(0,0,0,.2);
+    position: absolute; left: 6%; right: 6%; top: 6%; height: 86%; z-index: 2; border-radius: 4px;
+    background: linear-gradient(transparent 22%, rgba(126,37,50,.16) 22% calc(22% + 1px), transparent 0) 0 0 / 100% 14px, var(--sheet);
+    background-clip: content-box; padding: 10% 12%;
   }
-  .env-front {
-    position: absolute; inset: 0; z-index: 3; border-radius: 6px;
-    background: linear-gradient(160deg, #8a2b3c, #6e1f2c);
-    clip-path: polygon(0 0, 50% 47%, 100% 0, 100% 100%, 0 100%);
-  }
-  .flap { position: absolute; left: 0; right: 0; top: 0; height: 50%; z-index: 4; transform-origin: top; filter: drop-shadow(0 5px 4px rgba(0,0,0,.35)); }
-  .flap::before { content: ""; position: absolute; inset: 0; background: linear-gradient(#93304a, #7a2433); clip-path: polygon(0 0, 100% 0, 50% 100%); border-radius: 6px 6px 0 0; }
+  .env-front { position: absolute; inset: 0; z-index: 3; border-radius: 10px; background: var(--ink); clip-path: polygon(0 0, 50% 47%, 100% 0, 100% 100%, 0 100%); }
+  .flap { position: absolute; left: 0; right: 0; top: 0; height: 50%; z-index: 4; transform-origin: top; filter: drop-shadow(0 4px 0 rgba(18,41,31,.25)); }
+  .flap::before { content: ""; position: absolute; inset: 0; background: #8f2c3b; clip-path: polygon(0 0, 100% 0, 50% 100%); border-radius: 10px 10px 0 0; }
   .seal {
-    position: absolute; top: 50%; left: 50%; z-index: 5; width: 66px; height: 66px; translate: -50% -50%;
-    display: grid; place-items: center; border-radius: 50%;
-    background: radial-gradient(circle at 35% 30%, #ecd08f, #b98f45 55%, #8a6630);
-    box-shadow: 0 0 0 4px #a98140, 0 0 0 5px rgba(0,0,0,.15), 0 6px 10px rgba(0,0,0,.4), inset 0 -4px 8px rgba(0,0,0,.25);
-    font-family: "Pinyon Script", cursive; font-size: 2.3rem; color: #2e1e04; padding-top: 6px;
+    position: absolute; top: 50%; left: 50%; z-index: 5; width: 74px; height: 74px; translate: -50% -50%;
+    display: grid; place-items: center; border-radius: 50%; color: var(--paper);
+    background: radial-gradient(circle, var(--core) 0%, var(--core) 30%, var(--sun) 100%);
+    box-shadow: 3px 5px 0 rgba(18,41,31,.3);
   }
-  .address { position: absolute; left: 0; right: 0; bottom: 8%; z-index: 4; text-align: center; color: #f1e3c8; pointer-events: none; }
-  .address b { display: block; font: 400 clamp(1.7rem, 5vw, 2.5rem)/1 "Pinyon Script", cursive; }
-  .address span { font-style: italic; font-size: .9rem; opacity: .75; }
+  .seal .mk { font-size: 46px; }
+  .address { position: absolute; left: 0; right: 0; bottom: 7%; z-index: 4; display: grid; justify-items: center; color: var(--paper); pointer-events: none; }
+  .address .mk { font-size: clamp(40px, 8vw, 62px); }
+  .address > span:last-child { font-style: italic; font-size: .9rem; margin-top: 2px; }
 
   /* ---------- letter ---------- */
   .reading { position: fixed; inset: 0; overflow-y: auto; display: flex; padding: clamp(24px, 6vh, 72px) 16px; }
   .paper {
-    margin: auto; width: min(640px, 100%); transform-origin: top left;
+    margin: auto; width: min(660px, 100%); transform-origin: top left;
     padding: clamp(32px, 7vw, 72px) clamp(24px, 7vw, 76px);
-    color: var(--ink); font-size: clamp(1.05rem, 2.2vw, 1.2rem); line-height: 1.75;
+    color: var(--core); font-size: clamp(1.05rem, 2.2vw, 1.2rem); line-height: 1.75;
     background:
-      linear-gradient(transparent calc(33.33% - 1px), rgba(60,40,20,.07) 33.33%, transparent calc(33.33% + 2px), transparent calc(66.66% - 1px), rgba(60,40,20,.07) 66.66%, transparent calc(66.66% + 2px)),
-      radial-gradient(ellipse at 30% 15%, #fbf6ec, #efe4d0);
-    box-shadow: 0 50px 90px -30px rgba(0,0,0,.75), 0 0 0 1px rgba(0,0,0,.04);
-    border-radius: 2px;
+      linear-gradient(transparent calc(33.33% - 1px), rgba(80,40,20,.08) 33.33%, transparent calc(33.33% + 2px), transparent calc(66.66% - 1px), rgba(80,40,20,.08) 66.66%, transparent calc(66.66% + 2px)),
+      var(--sheet);
+    box-shadow: 14px 16px 0 rgba(126,37,50,.16);
+    border-radius: 4px;
   }
   .paper.sealed > * { opacity: 0; }
   .paper p { margin: 0 0 1.1em; }
-  .paper .date { text-align: right; font-style: italic; font-size: .95em; opacity: .7; margin-bottom: 2em; }
-  .paper .salute { font: 400 clamp(2.1rem, 5vw, 2.8rem)/1.2 "Pinyon Script", cursive; margin-bottom: .6em; }
-  .paper .close { margin: 2em 0 0; font-style: italic; }
-  .paper .sign { font: 400 clamp(2rem, 5vw, 2.6rem)/1.2 "Pinyon Script", cursive; margin: .1em 0 0; }
+  .paper .date { text-align: right; font-style: italic; font-size: .95em; margin-bottom: 1.6em; }
+  .paper .salute { font-size: clamp(50px, 10vw, 84px); color: var(--ink); margin-bottom: .3em; }
+  .paper .close { margin: 2em 0 .2em; font-style: italic; }
+  .paper .sign { font-size: clamp(50px, 10vw, 84px); color: var(--ink); }
 
   @media (prefers-reduced-motion: reduce) {
     .envelope, .btn { transition: none; }
@@ -191,11 +202,11 @@
 <main class="game" id="game">
   <header class="top">
     <div>
-      <h1>Four months, one game.</h1>
+      <h1 class="mk-title" aria-label="Four months, one game."><span class="mk" id="title1">Four months,</span><span class="mk" id="title2">One game.</span></h1>
       <p>Win this game of backgammon, Nadège, and the letter is yours.</p>
     </div>
     <div class="sealed" aria-hidden="true">
-      <svg viewBox="0 0 64 40"><rect width="64" height="40" rx="3" fill="#7e2532"/><path d="M0 2 32 24 64 2" fill="none" stroke="#5f1a25" stroke-width="2"/><circle cx="32" cy="23" r="7" fill="#c29a52"/></svg>
+      <svg viewBox="0 0 64 40"><rect width="64" height="40" rx="4" fill="#7e2532"/><path d="M0 2 32 24 64 2" fill="none" stroke="#5f1a25" stroke-width="2.5"/><circle cx="32" cy="23" r="7.5" fill="#21483a"/></svg>
       Sealed until you win
     </div>
   </header>
@@ -203,18 +214,16 @@
   <div class="board-wrap">
     <svg id="board" viewBox="0 0 1080 720" aria-label="Backgammon board">
       <defs>
-        <linearGradient id="wood" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6b3e22"/><stop offset=".5" stop-color="#4a2a18"/><stop offset="1" stop-color="#341c10"/></linearGradient>
-        <filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".006 .35" numOctaves="3" seed="4"/><feColorMatrix values="0 0 0 0 .08  0 0 0 0 .04  0 0 0 0 .02  0 0 0 .5 0"/><feComposite in2="SourceGraphic" operator="in"/></filter>
-        <filter id="nap" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="2"/><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .22 0"/><feComposite in2="SourceGraphic" operator="in"/></filter>
-        <radialGradient id="gP" cx=".38" cy=".32" r=".75"><stop offset="0" stop-color="#fff9ec"/><stop offset=".7" stop-color="#e9dcc0"/><stop offset="1" stop-color="#c9b693"/></radialGradient>
-        <radialGradient id="gA" cx=".38" cy=".32" r=".75"><stop offset="0" stop-color="#4a3b33"/><stop offset=".7" stop-color="#1f1815"/><stop offset="1" stop-color="#0e0a08"/></radialGradient>
-        <g id="cP"><circle r="29" fill="url(#gP)" stroke="#a8936e" stroke-width="1.5"/><circle r="20" fill="none" stroke="#bfaa83" stroke-width="1.2"/></g>
-        <g id="cA"><circle r="29" fill="url(#gA)" stroke="#000" stroke-width="1.5"/><circle r="20" fill="none" stroke="#b08a4a" stroke-opacity=".7" stroke-width="1.2"/></g>
+        <!-- the sun's shading: darkest at the heart of each field -->
+        <radialGradient id="shade" cx=".5" cy=".5" r=".6"><stop offset="0" stop-color="#0c1c15" stop-opacity=".55"/><stop offset=".6" stop-color="#0c1c15" stop-opacity=".2"/><stop offset="1" stop-color="#0c1c15" stop-opacity="0"/></radialGradient>
+        <g id="cP"><circle cx="3" cy="5" r="29" fill="#0c1c15" opacity=".35"/><circle r="29" fill="#eadbbe" stroke="#12291f" stroke-width="3"/><circle r="16" fill="none" stroke="#7e2532" stroke-width="5"/></g>
+        <g id="cA"><circle cx="3" cy="5" r="29" fill="#0c1c15" opacity=".45"/><circle r="29" fill="#7e2532" stroke="#12291f" stroke-width="3"/><circle r="16" fill="none" stroke="#eadbbe" stroke-width="5" stroke-opacity=".85"/></g>
       </defs>
       <g id="static"></g>
       <g id="dyn"></g>
     </svg>
     <div class="lost" id="lost" hidden>
+      <span class="mk" id="lostMk">So close!</span>
       <p>The house takes this one.</p>
       <button class="btn primary" id="again">Play again</button>
     </div>
@@ -234,27 +243,29 @@
 </main>
 
 <section class="stage-letter" id="letterStage" hidden>
-  <p class="won-line">You won. Break the seal.</p>
+  <div class="won"><span class="mk" id="wonMk">You won!</span><p class="won-line">Break the seal.</p></div>
   <button class="envelope" id="envelope" aria-label="Open the letter">
     <span class="env-back"></span>
     <span class="env-letter"></span>
     <span class="env-front"></span>
     <span class="flap"></span>
-    <span class="seal" aria-hidden="true">N</span>
-    <span class="address"><b>For Nadège</b><span>four months</span></span>
+    <span class="seal" aria-hidden="true"><span class="mk mk-fill" id="sealMk">♥</span></span>
+    <span class="address"><span class="mk" id="addrMk">Nadège</span><span>four months</span></span>
   </button>
 </section>
 
 <div class="reading" id="reading" hidden>
-  <!-- ✏️ EDIT YOUR LETTER HERE: every <p> fades in one after another. Add or remove paragraphs freely. -->
+  <!-- ✏️ EDIT YOUR LETTER HERE: every <p> fades in one after another. Add or remove paragraphs freely.
+       The salute and the sign are drawn in marker lettering: A–Z, 0–9, ! ? . , ' - and È work; other accents are dropped. -->
+
   <article class="paper sealed" id="paper">
     <p class="date">[Date]</p>
-    <p class="salute">My dear Nadège,</p>
+    <p class="salute mk">My dear Nadège,</p>
     <p>I dont know whete to start when thinking about the last 4 months and even more about the whole time I got the privilege to live, enjoy, joke, felling worrieless, feeling worried, and especially loved with you together. For some four months is a long time, but for me it meant enjoying every second, and every eye blink we shared together to the fullest joy i could have. </p>
     <p>[A second paragraph: a memory from these four months, something only the two of you know.]</p>
     <p>[A third paragraph: what comes next.]</p>
     <p class="close">Yours, always,</p>
-    <p class="sign">[Your name]</p>
+    <p class="sign mk">[Your name]</p>
   </article>
 </div>
 
@@ -373,19 +384,22 @@ function pos(s, loc, side) {
 }
 
 // ---------- static board ----------
-(function drawBoard() {
-  let h = `<rect width="1080" height="720" rx="18" fill="url(#wood)"/><rect width="1080" height="720" rx="18" fill="#000" filter="url(#grain)"/>`;
-  for (const x of [24, 528]) h += `<rect x="${x}" y="24" width="432" height="672" fill="#1f4334"/><rect x="${x}" y="24" width="432" height="672" fill="#000" filter="url(#nap)"/>`;
-  h += `<rect x="984" y="24" width="72" height="672" rx="4" fill="#24140c"/><line x1="988" x2="1052" y1="360" y2="360" stroke="#4a2a18" stroke-width="2"/>`;
+// Called once the marker alphabet below is defined.
+function drawBoard() {
+  let h = `<rect width="1080" height="720" rx="22" fill="#12291f"/>`;
+  for (const x of [24, 528]) h += `<rect x="${x}" y="24" width="432" height="672" rx="6" fill="#21483a"/><rect x="${x}" y="24" width="432" height="672" rx="6" fill="url(#shade)"/>`;
+  h += `<rect x="984" y="24" width="72" height="672" rx="10" fill="#0c1c15"/>`;
   for (let i = 0; i < 24; i++) {
-    const x = pointX(i), fill = i % 2 ? '#e6d5b0' : '#8c2f39';
-    const [base, tip] = i < 12 ? [696, 416] : [24, 304];
-    h += `<polygon points="${x - 34},${base} ${x + 34},${base} ${x},${tip}" fill="${fill}" opacity=".93"/>`;
-    h += `<text x="${x}" y="${i < 12 ? 713 : 17}" fill="#c29a52" font-size="12" font-family="Libre Caslon Text, serif" text-anchor="middle">${i + 1}</text>`;
+    const x = pointX(i), fill = i % 2 ? '#eadbbe' : '#7e2532';
+    const [base, tip] = i < 12 ? [692, 418] : [28, 302];
+    // hand-inked: corners nudged like the preloader's boiled lines, rounded by a fat stroke
+    const d = amrPath(`M${x - 31} ${base} L${x} ${tip} L${x + 31} ${base} Z`, [1, 0, 0, 1, 0, 0], 2.5, i + 3);
+    h += `<path d="${d}" fill="${fill}" stroke="${fill}" stroke-width="6" stroke-linejoin="round"/>`;
+    h += `<text x="${x}" y="${i < 12 ? 714 : 17}" fill="#eadbbe" font-size="13" font-style="italic" font-family="Libre Caslon Text, serif" text-anchor="middle">${i + 1}</text>`;
   }
-  for (const y of [170, 530]) h += `<rect x="484" y="${y}" width="16" height="22" rx="3" fill="#b08a4a"/><rect x="484" y="${y + 9}" width="16" height="4" fill="#7a5a28"/>`;
+  h += `<path d="${amrLine('♥', 492, 360, 26)}" fill="#7e2532" stroke="#7e2532" stroke-width="6" stroke-linejoin="round"/>`;
   $('#static').innerHTML = h;
-})();
+}
 
 // ---------- state ----------
 let game;
@@ -445,8 +459,8 @@ function render(anim) {
   for (let k = 0; k < s.barA; k++) h.push(chk(492, barY(-1, k), -1));
   for (let k = 0; k < s.barP; k++) h.push(chk(492, barY(1, k), 1));
   if (s.barP) h.push(ring(BAR, 492, barY(1, s.barP - 1)));
-  for (let k = 0; k < s.offP; k++) h.push(`<g><g ${isAnim(OFF, 1, k === s.offP - 1)}><rect x="990" y="${696 - (k + 1) * 16 + 1}" width="60" height="14" rx="3" fill="url(#gP)" stroke="#a8936e"/></g></g>`);
-  for (let k = 0; k < s.offA; k++) h.push(`<g><g ${isAnim(OFF, -1, k === s.offA - 1)}><rect x="990" y="${24 + k * 16 + 1}" width="60" height="14" rx="3" fill="url(#gA)" stroke="#000"/></g></g>`);
+  for (let k = 0; k < s.offP; k++) h.push(`<g><g ${isAnim(OFF, 1, k === s.offP - 1)}><rect x="990" y="${696 - (k + 1) * 16 + 1}" width="60" height="14" rx="4" fill="#eadbbe" stroke="#12291f" stroke-width="2"/></g></g>`);
+  for (let k = 0; k < s.offA; k++) h.push(`<g><g ${isAnim(OFF, -1, k === s.offA - 1)}><rect x="990" y="${24 + k * 16 + 1}" width="60" height="14" rx="4" fill="#7e2532" stroke="#12291f" stroke-width="2"/></g></g>`);
 
   if (sel !== null) for (const m of nm.filter(m => m.from === sel)) {
     if (m.to === OFF) continue;
@@ -459,8 +473,14 @@ function render(anim) {
   const el = anim && $('#dyn [data-anim]');
   if (el) {
     const to = pos(s, anim.loc, anim.side);
-    el.animate([{ transform: `translate(${anim.from.x - to.x}px, ${anim.from.y - to.y}px)` }, { transform: 'translate(0, 0)' }],
-      { duration: reduce ? 1 : 460, easing: 'cubic-bezier(.25,.8,.25,1)' });
+    // glide, then land with the preloader's squash-and-stretch boing
+    el.animate([
+      { transform: `translate(${anim.from.x - to.x}px, ${anim.from.y - to.y}px)`, easing: 'cubic-bezier(.25,.8,.25,1)' },
+      { transform: 'translate(0, 0) scale(1)', offset: .62 },
+      { transform: 'scale(1.16, .84)', offset: .78 },
+      { transform: 'scale(.95, 1.06)', offset: .9 },
+      { transform: 'none' }
+    ], { duration: reduce ? 1 : 640 });
   }
 }
 
@@ -557,7 +577,7 @@ async function houseTurn(preset) {
     game.s = houseApply(game.s, fm); markUsed(fm.die);
     render({ loc: m.to, side: -1, from: pos(before, m.from, -1) });
   }
-  if (game.s.offA === 15) { game.phase = 'over'; ui(); say('The house bore off first.'); $('#lost').hidden = false; return; }
+  if (game.s.offA === 15) { game.phase = 'over'; ui(); say('The house bore off first.'); $('#lost').hidden = false; lostMk.ink(200); return; }
   await wait(500);
   game.phase = 'roll'; ui(); say('Your roll.');
 }
@@ -587,6 +607,7 @@ function showEnvelope() {
   $('#game').hidden = true; $('#letterStage').hidden = false; scrollTo(0, 0);
   $('#envelope').animate([{ opacity: 0, transform: 'translateY(-60px) rotate(-5deg)' }, { opacity: 1, transform: 'none' }],
     { duration: reduce ? 1 : 1000, easing: 'cubic-bezier(.2,.9,.25,1.1)' });
+  wonMk.ink(400); addrMk.ink(1100); sealMk.ink(1700);
 }
 
 $('#envelope').addEventListener('click', async function open() {
@@ -615,8 +636,11 @@ $('#envelope').addEventListener('click', async function open() {
   ], { duration: 1300 * T, easing: 'cubic-bezier(.45,.05,.2,1)' }).finished;
   $('#letterStage').hidden = true;
 
-  [...paper.children].forEach((el, i) => el.animate([{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }],
-    { duration: 800 * T, delay: i * 260 * T, easing: 'ease-out', fill: 'backwards' }));
+  [...paper.children].forEach((el, i) => {
+    el.animate([{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }],
+      { duration: 800 * T, delay: i * 260 * T, easing: 'ease-out', fill: 'backwards' });
+    marks.find(m => m.el === el)?.ink(i * 260); // salute and sign are written stroke by stroke
+  });
   paper.classList.remove('sealed');
 });
 
@@ -669,8 +693,9 @@ const AMR_GLYPHS = {
   "'": [32, ["M16 12 V30"]],
   "-": [60, ["M14 52 H46"]],
   "♥": [92, ["M46 86 C30 72 12 58 12 36 C12 20 22 12 33 12 C41 12 45 18 46 27 C47 18 51 12 59 12 C70 12 80 20 80 36 C80 58 62 72 46 86 Z"]],
+  "È": [66, ["M55 12 H17 V88 H56", "M17 49 H47", "M26 -12 L38 0"]], // for Nadège
 };
-const amrGlyph = ch => AMR_GLYPHS[ch.normalize('NFD').replace(/[̀-ͯ]/g, '').toUpperCase()] ?? AMR_GLYPHS[ch] ?? AMR_GLYPHS[' '];
+const amrGlyph = ch => AMR_GLYPHS[ch.toUpperCase()] ?? AMR_GLYPHS[ch.normalize('NFD').replace(/[̀-ͯ]/g, '').toUpperCase()] ?? AMR_GLYPHS[' '];
 const clamp01 = x => x <= 0 ? 0 : x >= 1 ? 1 : x;
 const KNOTS = [[0, 0], [.22, .28], [.33, .31], [.6, .7], [.7, .73], [1, 1]];
 function amrSimulated(t) {
@@ -753,8 +778,8 @@ function amrLayout(widths, W, H, weight, fan) {
   const root = $('#amr'); if (!root) return;
   // Felt-green sun on bone paper: when the sun swallows the screen it hands over to the board's felt.
   const C = { paper: '#eadbbe', ink: '#7e2532', sun: '#21483a', core: '#0c1c15', glow: '#eadbbe' };
-  const WORD = 'AMOUR', CAPTION = 'for Nadège', DURATION = 4200, BOIL = 1, SWAY = 1;
-  const BLOOM_MS = 1700, HOLD_MS = 2800, LIFT_MS = 1500, INTRO_MS = 900, BOIL_MS = 125;
+  const WORD = 'AMOUR', CAPTION = 'for nodnosch', DURATION = 4200, BOIL = 1, SWAY = 1;
+  const BLOOM_MS = 1700, LIFT_MS = 1500, INTRO_MS = 900, BOIL_MS = 125;
   const deg = r => r * 180 / Math.PI;
   const gate = root.querySelector('.amr-gate'), stage = root.querySelector('.amr-stage');
   const glyphs = Array.from(WORD).map(amrGlyph);
@@ -820,9 +845,9 @@ function amrLayout(widths, W, H, weight, fan) {
       lay.letters.forEach((_, i) => setTimeout(() => kick(i, 1), 80 + i * 85));
       timer = setTimeout(() => setPhase('hold'), BLOOM_MS);
     } else if (p === 'hold') {
-      gate.setAttribute('aria-valuetext', 'Loaded. Press Enter to continue.');
-      timer = setTimeout(() => setPhase('lift'), HOLD_MS);
+      gate.setAttribute('aria-valuetext', 'Loaded. Press Enter to continue.'); // waits here for her click
     } else if (p === 'lift') {
+      document.dispatchEvent(new Event('amr:lift'));
       timer = setTimeout(() => { phase = 'done'; root.remove(); }, LIFT_MS);
     }
   }
@@ -904,6 +929,56 @@ function amrLayout(widths, W, H, weight, fan) {
   build();
 })();
 
+// ---------- marker lettering: the preloader's alphabet, inked stroke by stroke and boiling ----------
+const marks = [];
+const BOING = [{ transform: 'none' }, { transform: 'translateY(-8%) scale(.92, 1.12)', offset: .3 }, { transform: 'scale(1.1, .9)', offset: .6 }, { transform: 'none' }];
+const markJitter = (mk, seed) => { let k = 0; mk.parts.forEach(p => p.strokes.forEach(d => mk.paths[k++].setAttribute('d', amrPath(d, p.m, 1.1, seed + p.gi)))); };
+function marker(el) {
+  const text = el.textContent.trim(), pad = 24;
+  let x = 0;
+  const parts = Array.from(text).map(amrGlyph).map((g, gi) => {
+    // each letter leans a touch, like it was written by hand
+    const r = (amrHash(gi * 9.7 + text.length) - .5) * .1, c = Math.cos(r), s = Math.sin(r), cx = x + g[0] / 2;
+    const m = [c, s, -s, c, c * (x - cx) + s * 50 + cx, s * (x - cx) - c * 50 + 50];
+    x += g[0];
+    return { strokes: g[1], m, gi };
+  });
+  el.setAttribute('role', 'img'); el.setAttribute('aria-label', text);
+  el.innerHTML = `<svg viewBox="${-pad} ${-pad} ${x + 2 * pad} ${100 + 2 * pad}" aria-hidden="true">`
+    + parts.map(p => `<g class="mk-g">${p.strokes.map(() => '<path pathLength="1" stroke-dasharray="1 1" style="stroke-dashoffset:1"/>').join('')}</g>`).join('') + '</svg>';
+  const mk = { el, parts, paths: [...el.querySelectorAll('path')], groups: [...el.querySelectorAll('.mk-g')], fill: el.classList.contains('mk-fill') };
+  markJitter(mk, 1);
+  mk.ink = (delay = 0, per = 150) => {
+    const T = reduce ? 0 : 1;
+    let t = delay;
+    mk.paths.forEach(p => {
+      p.getAnimations().forEach(a => a.cancel());
+      p.animate([{ strokeDashoffset: 1 }, { strokeDashoffset: 0 }], { duration: per * T + 1, delay: t * T, easing: 'cubic-bezier(.45,0,.2,1)', fill: 'both' });
+      t += per * .75;
+    });
+    if (mk.fill) mk.paths.forEach(p => p.animate([{ fillOpacity: 0 }, { fillOpacity: 1 }], { duration: 400 * T + 1, delay: t * T, fill: 'both' }));
+    if (!reduce) mk.groups.forEach((g, i) => g.animate(BOING, { duration: 620, delay: t + 150 + i * 80, easing: 'ease-out' }));
+  };
+  el.addEventListener('pointerover', e => {
+    const g = e.target.closest('.mk-g');
+    if (g && !reduce && !g.contains(e.relatedTarget)) g.animate(BOING, { duration: 560, easing: 'ease-out' });
+  });
+  marks.push(mk);
+  return mk;
+}
+if (!reduce) setInterval(() => { // boil: three hand-inked frames, cycled like a cel loop
+  if (document.hidden) return;
+  const f = Math.floor(Date.now() / 125) % 3;
+  for (const mk of marks) if (mk.el.offsetParent) markJitter(mk, f * 7 + 1);
+}, 125);
+
+const mark = q => marker($(q));
+const title = [mark('#title1'), mark('#title2')], lostMk = mark('#lostMk'), wonMk = mark('#wonMk'), sealMk = mark('#sealMk'), addrMk = mark('#addrMk');
+mark('.paper .salute'); mark('.paper .sign');
+const inkTitle = () => { title[0].ink(500); title[1].ink(500 + title[0].paths.length * 112); };
+if ($('#amr')) document.addEventListener('amr:lift', inkTitle, { once: true }); else inkTitle();
+
+drawBoard();
 newGame(); render(); ui();
 if (location.hash === '#letter') { $('#game').hidden = true; showEnvelope(); } // preview shortcut
 </script>
